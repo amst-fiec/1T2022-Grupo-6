@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MenuPrincipal extends AppCompatActivity {
     Button btnCerrarSesion;
+    Button btnRegistrar;
     private FirebaseAuth mAuth;
     //Variables opcionales para desloguear de google tambien
     private GoogleSignInClient mGoogleSignInClient;
@@ -31,6 +32,7 @@ public class MenuPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
         btnCerrarSesion = findViewById(R.id.btnSignOff);
+        btnRegistrar = findViewById(R.id.btnRegis);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //Configurar las gso para google signIn con el fin de desloguear de google
@@ -63,5 +65,10 @@ public class MenuPrincipal extends AppCompatActivity {
                 });
             }
         });
+    }
+    public void RegistrarEscen(View v){
+
+        Intent i = new Intent(this, RegistrarEscenario.class);
+        startActivity(i);
     }
 }
