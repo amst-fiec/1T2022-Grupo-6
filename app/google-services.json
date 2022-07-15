@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "780101851935",
+    "project_id": "airtech-1b766",
+    "storage_bucket": "airtech-1b766.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780101851935:android:5921e80c01c8ccda33ee2a",
+        "android_client_info": {
+          "package_name": "com.example.airtech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780101851935-mq4a7hsmpe28eqmu72i5lpnq8476rru4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.airtech",
+            "certificate_hash": "9abd3629002f443a4b25318eba99d35fbcba6d0c"
+          }
+        },
+        {
+          "client_id": "780101851935-1iv0vkh9q88d6neam0ufpnl785aq07v9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC168yXrD17sSdIRlWuPJ4h2MQBZ1ED9eQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780101851935-1iv0vkh9q88d6neam0ufpnl785aq07v9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
