@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,6 +35,36 @@ public class MenuPrincipal extends AppCompatActivity {
         btnCerrarSesion = findViewById(R.id.btnSignOff);
         btnRegistrar = findViewById(R.id.btnRegis);
         mAuth = FirebaseAuth.getInstance();
+        TextView tv1 =  (TextView) findViewById(R.id.textView2);
+        TextView tv2 =  (TextView) findViewById(R.id.textView3);
+        TextView tv3 =  (TextView) findViewById(R.id.textView4);
+
+        tv1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MenuPrincipal.this, MostrarEscenario.class);
+
+                i.putExtra("escenario",tv1.getText().toString());
+                startActivity(i);
+            }
+        });
+        tv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MenuPrincipal.this, MostrarEscenario.class);
+                i.putExtra("escenario",tv2.getText().toString());
+                startActivity(i);
+            }
+        });
+        tv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MenuPrincipal.this, MostrarEscenario.class);
+                i.putExtra("escenario",tv3.getText().toString());
+                startActivity(i);
+            }
+        });
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //Configurar las gso para google signIn con el fin de desloguear de google
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Airtech"
         tools:targetApi="31">
         <activity
+            android:name=".MostrarEscenario"
+            android:exported="false" />
+        <activity
             android:name=".MenuPrincipal"
             android:exported="false" />
         <activity
