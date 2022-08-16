@@ -2,6 +2,7 @@
   "project_info": {
     "project_number": "780101851935",
     "project_id": "airtech-1b766",
+    "firebase_url": "https,://airtech-1b766-default-rtdb.firebaseio.com",
     "storage_bucket": "airtech-1b766.appspot.com"
   },
   "client": [

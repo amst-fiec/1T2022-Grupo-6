@@ -128,5 +128,9 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onStart();
     }
+    public void conectar(View view){
+        Intent i = new Intent(MainActivity.this, MenuPrincipal.class);
+        startActivity(i);
+    }
 
 }
