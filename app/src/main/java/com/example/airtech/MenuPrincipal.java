@@ -33,11 +33,20 @@ public class MenuPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
         btnCerrarSesion = findViewById(R.id.btnSignOff);
-        btnRegistrar = findViewById(R.id.btnRegis);
+        btnRegistrar = findViewById(R.id.btnCrear);
         mAuth = FirebaseAuth.getInstance();
         TextView tv1 =  (TextView) findViewById(R.id.textView2);
         TextView tv2 =  (TextView) findViewById(R.id.textView3);
         TextView tv3 =  (TextView) findViewById(R.id.textView4);
+
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MenuPrincipal.this, RegistrarEscenario.class);
+                startActivity(i);
+                MenuPrincipal.this.finish();
+            }
+        });
 
         tv1.setOnClickListener(new View.OnClickListener() {
 
