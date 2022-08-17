@@ -19,6 +19,9 @@
             android:name=".MostrarEscenario"
             android:exported="false" />
         <activity
+            android:name=".RegistrarEscenario"
+            android:exported="false" />
+        <activity
             android:name=".MenuPrincipal"
             android:exported="false" />
         <activity
