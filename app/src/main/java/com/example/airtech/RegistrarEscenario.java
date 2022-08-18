@@ -1,11 +1,13 @@
 package com.example.airtech;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,8 +32,14 @@ public class RegistrarEscenario extends AppCompatActivity {
     int i = 1;
     private LinearLayout layout;
 
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private EditText popup_NameEscen, popup_adress, popup_aforo, popup_numero;
+    private Button popup_save, popup_cancel;
+
     Button btnRegistrarEscenario;
     ImageView btnEliminar;
+    ImageView btnEditar;
     String layouts[] = {"apple", "orange", "lemon", "pear", "grape"};
     String button[] = {"apple1", "orange1", "lemon1", "pear1", "grape1"};
 
@@ -59,13 +67,21 @@ public class RegistrarEscenario extends AppCompatActivity {
                     textView.setText((etiqueta+"     "));
                     layout.addView(laViewInflada);
                     btnEliminar  = laViewInflada.findViewById(R.id.ImageView02);
+                    btnEditar  = laViewInflada.findViewById(R.id.ImageView01);
 
                     btnEliminar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Toast.makeText(getApplicationContext(), "Eliminacion Exitosa", Toast.LENGTH_LONG).show();
                             layout.removeView(laViewInflada);
-                            //layout.removeViewAt(2);
+                        }
+                    });
+
+                    btnEditar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            createNewEscennaryDialog();
+                            //Hacer que aparezcan los datos anteriores
                         }
                     });
 
@@ -78,6 +94,7 @@ public class RegistrarEscenario extends AppCompatActivity {
 
             }
         });
+
         btnRegistrarEscenario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,11 +108,39 @@ public class RegistrarEscenario extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getApplicationContext(), "H0la", Toast.LENGTH_LONG).show();
-                        //layout.removeView(laViewInflada);
-                        layout.removeViewAt(2);
+                        layout.removeView(laViewInflada);
                     }
                 });
                 i++;
+            }
+        });
+    }
+    public void createNewEscennaryDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup,null);
+        popup_NameEscen = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_Name);
+        popup_adress = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
+        popup_numero = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_numero);
+        popup_aforo = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
+
+        popup_save = (Button) escenarioPopUpView.findViewById(R.id.saveButton);
+        popup_cancel = (Button) escenarioPopUpView.findViewById(R.id.cancelButton);
+
+        dialogBuilder.setView(escenarioPopUpView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        popup_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //define save button here!
+                //Que las variables se guarden
+            }
+        });
+        popup_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
     }
