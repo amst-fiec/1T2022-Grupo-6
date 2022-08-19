@@ -7,6 +7,10 @@ public class Data {
     public String alertacalidad;
     public String alertahumedad;
     public String alertatemperatura;
+    public String direccion;
+    public String aforo;
+    public String telefono;
+
 
     public Data() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -29,5 +33,14 @@ public class Data {
     }
     public String getAlertaH() {
         return alertahumedad;
+    }
+    public void setTelefono(String tele) {
+        this.telefono = tele;
+    }
+    public void setDireccion(String dir) {
+        this.direccion = dir;
+    }
+    public void setAforo(String afor) {
+        this.aforo = afor;
     }
 }

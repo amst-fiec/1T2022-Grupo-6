@@ -33,12 +33,12 @@ public class MostrarEscenario extends AppCompatActivity {
         titulo.setText(escen);
         //tv=findViewById(R.id.textView);
 
-       
+
         FirebaseApp.initializeApp(this);
         firebaseDatabase= FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
         databaseReference.child("Escenario1").addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
+            //@SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Data d = snapshot.getValue(Data.class);
