@@ -115,12 +115,12 @@ public class RegistrarEscenario extends AppCompatActivity {
                             AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarEscenario.this);
                             builder.setTitle(R.string.app_name);
                             builder.setIcon(R.drawable.basura);
-                            builder.setMessage("'¿Seguro quiére eliminar el escenario?");
+                            builder.setMessage("¿Seguro desea eliminar el escenario?");
                             builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
 
 
-                                    Toast.makeText(getApplicationContext(), "Eliminacion Exitosa", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Eliminación Exitosa", Toast.LENGTH_LONG).show();
                                     databaseReference.child(String.valueOf(etiqueta)).setValue(null);
                                     for (int iter = 0; iter<i;iter++ ){
                                         layout.removeViewAt(0);

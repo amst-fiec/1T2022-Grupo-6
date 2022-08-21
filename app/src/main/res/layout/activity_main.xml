@@ -2,43 +2,51 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com
-/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/background">
+
     <LinearLayout
-        android:layout_width="401dp"
-        android:layout_height="423dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="410dp"
+        android:layout_height="251dp"
         android:gravity="center"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.406"
         tools:ignore="MissingConstraints">
-        <TextView
-            android:id="@+id/txtBienvenida"
-            android:layout_width="200dp"
-            android:layout_height="130dp"
-            android:gravity="center"
-            android:text="AirTech G6"
-            android:textSize="36sp" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/esquinas_redondeadas"
             android:backgroundTint="#5707E4"
-            android:onClick="irMenuPrincipal"
-            android:text="Inicio de Sesión con GOOGLE"
-            android:textColor="#FAFAFB"
-            />
+            android:drawableLeft="@drawable/google_logo"
+            android:text="   Inicio de Sesión con Google "
+            android:textColor="#FAFAFB" />
 
         <Button
             android:id="@+id/button"
-            android:layout_width="match_parent"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:onClick="conectar"
             android:text="Prueba" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/whatsapp_image_2022_07_11_at_10_17_27_pm" />
 </androidx.constraintlayout.widget.ConstraintLayout>

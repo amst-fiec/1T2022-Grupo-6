@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:background="@color/background">
 
 
     <ImageView
@@ -17,15 +19,19 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="395dp"
-        android:layout_height="350dp"
+        android:layout_width="289dp"
+        android:layout_height="293dp"
         android:layout_above="@+id/buttonsLayout"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/esquinas_redondeadas"
         android:fillViewport="true"
         android:scrollbarStyle="outsideInset">
 
@@ -36,7 +42,7 @@
             android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -48,13 +54,32 @@
 
         <Button
             android:id="@+id/btnAddEsc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="199dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="25dp"
             android:layout_weight="1"
+            android:onClick="addEsc"
             android:text="agregar escenario"
-            android:onClick="addEsc"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/botones_redondeados"/>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="249dp"
+        android:layout_height="29dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="34dp"
+        android:text="Escenarios Registrados:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
 
 </RelativeLayout>

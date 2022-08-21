@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MostrarEscenario">
+    tools:context=".MostrarEscenario"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/textView6"
