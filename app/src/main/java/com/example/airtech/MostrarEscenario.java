@@ -29,7 +29,7 @@ public class MostrarEscenario extends AppCompatActivity {
         TextView hum =  (TextView) findViewById(R.id.textView8);
         TextView calidad =  (TextView) findViewById(R.id.textView9);
         Intent intent= getIntent();
-        String escen = intent.getStringExtra("escenario");
+        String escen = intent.getStringExtra("id");
         titulo.setText(escen);
         //tv=findViewById(R.id.textView);
 
@@ -37,7 +37,7 @@ public class MostrarEscenario extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         firebaseDatabase= FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
-        databaseReference.child("Escenario1").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(escen).addListenerForSingleValueEvent(new ValueEventListener() {
             //@SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

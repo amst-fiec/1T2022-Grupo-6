@@ -7,19 +7,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.airtech.model.Data;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MenuPrincipal extends AppCompatActivity {
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
     Button btnCerrarSesion;
     Button btnRegistrar;
     private FirebaseAuth mAuth;
@@ -35,9 +45,7 @@ public class MenuPrincipal extends AppCompatActivity {
         btnCerrarSesion = findViewById(R.id.btnSignOff);
         btnRegistrar = findViewById(R.id.btnCrear);
         mAuth = FirebaseAuth.getInstance();
-        TextView tv1 =  (TextView) findViewById(R.id.textView2);
-        TextView tv2 =  (TextView) findViewById(R.id.textView3);
-        TextView tv3 =  (TextView) findViewById(R.id.textView4);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,33 +55,38 @@ public class MenuPrincipal extends AppCompatActivity {
                 MenuPrincipal.this.finish();
             }
         });
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase= FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        tv1.setOnClickListener(new View.OnClickListener() {
+                for (DataSnapshot objSnapchot : snapshot.getChildren()){
+                    TextView tv = new TextView(MenuPrincipal.this);
+                    tv.setPaddingRelative(150,10,0,10);
+                    tv.setTextSize(24);
+                    tv.setText(objSnapchot.getKey());
+                    tv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(MenuPrincipal.this, MostrarEscenario.class);
+                            i.putExtra("id",objSnapchot.getKey());
+                            startActivity(i);
+                        }
+                    });
+                    ll.addView(tv);
+                }
+
+
+            }
 
             @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MenuPrincipal.this, MostrarEscenario.class);
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                i.putExtra("escenario",tv1.getText().toString());
-                startActivity(i);
             }
         });
-        tv2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MenuPrincipal.this, MostrarEscenario.class);
-                i.putExtra("escenario",tv2.getText().toString());
-                startActivity(i);
-            }
-        });
-        tv3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MenuPrincipal.this, MostrarEscenario.class);
-                i.putExtra("escenario",tv3.getText().toString());
-                startActivity(i);
-            }
-        });
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //Configurar las gso para google signIn con el fin de desloguear de google
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

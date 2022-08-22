@@ -63,14 +63,19 @@ public class RegistrarEscenario extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (int iter = 0; iter<i;iter++ ){
+                    layout.removeViewAt(0);
 
+
+                }
+                i=0;
                 for (DataSnapshot objSnapchot : snapshot.getChildren()){
                     String etiqueta= objSnapchot.getKey();
                     //String status= "Status: "+ objSnapchot.child("Activacion").getValue();
                     View laViewInflada = inflater.inflate(R.layout.escenario, layout, false);
                     TextView textView = (TextView) laViewInflada.findViewById(R.id.NumeroEscenario);
 
-                    textView.setTextSize(22);
+                    textView.setTextSize(18);
                     textView.setText((etiqueta));
                     layout.addView(laViewInflada);
                     btnEliminar  = laViewInflada.findViewById(R.id.ImageView02);
@@ -196,6 +201,7 @@ public class RegistrarEscenario extends AppCompatActivity {
                     });
                     i=i+1;
                 }
+
 
             }
 
