@@ -25,6 +25,15 @@ public class Data {
     public Long getCalidad() {
         return calidadaire;
     }
+    public String getDireccion() {
+        return direccion;
+    }
+    public String getTelefono() {
+        return telefono;
+    }
+    public String getAforo() {
+        return aforo;
+    }
     public String getAlertaC() {
         return alertacalidad;
     }

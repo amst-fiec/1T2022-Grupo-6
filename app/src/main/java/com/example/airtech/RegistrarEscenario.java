@@ -261,37 +261,5 @@ public class RegistrarEscenario extends AppCompatActivity {
             }
         });
     }
-    public void createNewEscennaryDialog(String escenario){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup1,null);
 
-        popup_adress = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
-        popup_numero = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_numero);
-        popup_aforo = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
-
-        popup_save = (Button) escenarioPopUpView.findViewById(R.id.saveButton);
-        popup_cancel = (Button) escenarioPopUpView.findViewById(R.id.cancelButton);
-
-        dialogBuilder.setView(escenarioPopUpView);
-        dialog = dialogBuilder.create();
-        dialog.show();
-
-        popup_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                databaseReference.child(escenario).child("direccion").setValue(popup_adress.getText().toString());
-
-                databaseReference.child(escenario).child("aforo").setValue(popup_aforo.getText().toString());
-
-                databaseReference.child(escenario).child("telefono").setValue(popup_numero.getText().toString());
-                dialog.dismiss();
-            }
-        });
-        popup_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-    }
 }

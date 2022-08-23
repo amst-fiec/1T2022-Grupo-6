@@ -32,6 +32,7 @@ public class MenuPrincipal extends AppCompatActivity {
     DatabaseReference databaseReference;
     Button btnCerrarSesion;
     Button btnRegistrar;
+    int i = 0;
     private FirebaseAuth mAuth;
     //Variables opcionales para desloguear de google tambien
     private GoogleSignInClient mGoogleSignInClient;
@@ -61,7 +62,12 @@ public class MenuPrincipal extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (int iter = 0; iter<i;iter++ ){
+                    ll.removeViewAt(0);
 
+
+                }
+                i=0;
                 for (DataSnapshot objSnapchot : snapshot.getChildren()){
                     TextView tv = new TextView(MenuPrincipal.this);
                     tv.setPaddingRelative(150,10,0,10);
@@ -76,6 +82,7 @@ public class MenuPrincipal extends AppCompatActivity {
                         }
                     });
                     ll.addView(tv);
+                    i=i+1;
                 }
 
 
