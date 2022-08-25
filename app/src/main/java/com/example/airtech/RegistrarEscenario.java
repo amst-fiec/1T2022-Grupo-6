@@ -35,7 +35,7 @@ public class RegistrarEscenario extends AppCompatActivity {
     DatabaseReference databaseReference;
     int i = 0;
     private LinearLayout layout;
-
+    String escenario, numero, aforo, direccion;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private EditText popup_NameEscen;
@@ -52,7 +52,6 @@ public class RegistrarEscenario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ScrollView sv = (ScrollView) findViewById((R.id.scrollView)) ;
         setContentView(R.layout.activity_registrar_escenario);
         btnRegistrarEscenario = findViewById(R.id.btnAddEsc);
         layout = (LinearLayout) findViewById(R.id.content);
@@ -171,13 +170,32 @@ public class RegistrarEscenario extends AppCompatActivity {
                                     popup_save.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            d.setAforo(popup_aforo.getText().toString());
-                                            d.setTelefono(popup_aforo.getText().toString());
-                                            d.setDireccion(popup_aforo.getText().toString());
+                                            aforo= popup_aforo.getText().toString().trim();
+                                            numero=popup_numero.getText().toString().trim();
+                                            direccion=popup_adress.getText().toString().trim();
 
-                                            databaseReference.child(escenario).child("aforo").setValue(popup_aforo.getText().toString());
+                                            if (numero.equals("") || aforo.equals("") || direccion.equals("")){
+                                                if(numero.equals("") && aforo.equals("")){
+                                                    databaseReference.child(escenario).child("direccion").setValue(direccion);
+                                                }
+                                                if(direccion.equals("") && aforo.equals("")){
+                                                    databaseReference.child(escenario).child("telefono").setValue(numero);
+                                                }
+                                                if(direccion.equals("") && numero.equals("") ){
+                                                    databaseReference.child(escenario).child("aforo").setValue(aforo);
+                                                }
+                                                if(direccion.equals("") && numero.equals("") &&aforo.equals("")){
+                                                    Toast.makeText(getApplicationContext(), "Por favor ingrese un parametro a editar", Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                            else {
+                                                databaseReference.child(escenario).child("aforo").setValue(aforo);
+                                                databaseReference.child(escenario).child("direccion").setValue(direccion);
+                                                databaseReference.child(escenario).child("telefono").setValue(numero);
 
-                                            databaseReference.child(escenario).child("telefono").setValue(popup_numero.getText().toString());
+                                            }
+
+
                                             dialog.dismiss();
                                             Intent intent=getIntent();
                                             finish();
@@ -214,9 +232,12 @@ public class RegistrarEscenario extends AppCompatActivity {
         btnRegistrarEscenario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogBuilder = new AlertDialog.Builder(RegistrarEscenario.this);
                 final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup,null);
                 popup_NameEscen = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_Name);
+                dialogBuilder = new AlertDialog.Builder(RegistrarEscenario.this);
+                dialogBuilder.setView(escenarioPopUpView);
+                dialog = dialogBuilder.create();
+                dialog.show();
                 popup_adress = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
                 popup_numero = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_numero);
                 popup_aforo = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
@@ -224,31 +245,33 @@ public class RegistrarEscenario extends AppCompatActivity {
                 popup_save = (Button) escenarioPopUpView.findViewById(R.id.saveButton);
                 popup_cancel = (Button) escenarioPopUpView.findViewById(R.id.cancelButton);
 
-                dialogBuilder.setView(escenarioPopUpView);
-                dialog = dialogBuilder.create();
-                dialog.show();
 
                 popup_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //define save button here!
+                            //define save button here!
 
-                        databaseReference.child(popup_NameEscen.getText().toString()).setValue("");
+                        if (validaciones()){
+                            Toast.makeText(getApplicationContext(), "Eliminación Exitosa", Toast.LENGTH_LONG).show();
+                            databaseReference.child(popup_NameEscen.getText().toString()).setValue("");
 
-                        databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("direccion").setValue(popup_adress.getText().toString());
+                            databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("direccion").setValue(popup_adress.getText().toString());
 
-                        databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("aforo").setValue(popup_aforo.getText().toString());
+                            databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("aforo").setValue(popup_aforo.getText().toString());
 
-                        databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("telefono").setValue(popup_numero.getText().toString());
-                        Intent intent=getIntent();
-                        finish();
-                        startActivity(intent);
-
+                            databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("telefono").setValue(popup_numero.getText().toString());
+                            Intent intent=getIntent();
+                            finish();
+                            startActivity(intent);
+                            i=0;
+                        }
                     }
 
                 });
 
-                i=0;
+
+
+
                 popup_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -258,8 +281,44 @@ public class RegistrarEscenario extends AppCompatActivity {
 
 
 
+
             }
         });
+    }
+    public boolean validaciones(){
+        final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup,null);
+        popup_adress = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
+        popup_numero = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_numero);
+        popup_aforo = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
+        popup_save = (Button) escenarioPopUpView.findViewById(R.id.saveButton);
+        popup_cancel = (Button) escenarioPopUpView.findViewById(R.id.cancelButton);
+        escenario= popup_NameEscen.getText().toString();
+        direccion=popup_adress.getText().toString();
+        aforo=popup_aforo.getText().toString();
+        numero= popup_numero.getText().toString();
+
+        if (false){
+            Toast.makeText(getApplicationContext(), "Eliminación Exitosa", Toast.LENGTH_LONG).show();
+            if (escenario.equals("")){
+                popup_NameEscen.setError("Se requiere el nombre de escenario");
+            }
+            if (direccion.equals("")) {
+                popup_adress.setError("Se requiere dirección");
+            }
+            if (aforo.equals("")){
+                popup_aforo.setError("Se requiere aforo");
+            }
+            if (numero.equals("")){
+                popup_aforo.setError("Se requiere numero de emergencia");
+            }
+
+
+            return false;
+        }
+
+        else
+            return true;
+
     }
 
 }
