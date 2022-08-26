@@ -32,12 +32,6 @@
             android:text="   Inicio de Sesión con Google "
             android:textColor="#FAFAFB" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:onClick="conectar"
-            android:text="Prueba" />
     </LinearLayout>
 
     <ImageView
