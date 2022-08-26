@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Locale;
+
 public class MostrarEscenario extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -33,7 +35,7 @@ public class MostrarEscenario extends AppCompatActivity {
         TextView direccion = findViewById(R.id.textView10);
         TextView telefono = findViewById(R.id.textView12);
         TextView aforo = findViewById(R.id.textView13);
-        TextView alerta = findViewById(R.id.textView2);
+
         Intent intent= getIntent();
         String escen = intent.getStringExtra("id");
         titulo.setText(escen);
@@ -55,7 +57,7 @@ public class MostrarEscenario extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         firebaseDatabase= FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
-        databaseReference.child(escen).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(escen).addValueEventListener(new ValueEventListener() {
             //@SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -69,18 +71,18 @@ public class MostrarEscenario extends AppCompatActivity {
                 direccion.setText("Direccion: "+ d.getDireccion() );
                 telefono.setText("Telefono SOS: "+ d.getTelefono() );
                 aforo.setText("Aforo: "+ d.getAforo() );
-                for (int i = 0; i < 3; i++){
-                    if(i==0){
-                        alerta.setText("Alerta temperatura: "+ d.getAlertaT() );
+
+                if(d.getAlertaT().equals("peligro")){
+                    Toast.makeText(MostrarEscenario.this, d.getAlertaT().toUpperCase(Locale.ROOT), Toast.LENGTH_SHORT).show();;
                     }
-                    if(i==1){
-                        alerta.setText("Alerta Humedad: "+ d.getAlertaH() );
+                if(d.getAlertaH().equals("peligro electricidad")){
+                    Toast.makeText(MostrarEscenario.this, d.getAlertaH().toUpperCase(), Toast.LENGTH_SHORT).show();;
                     }
-                    if(i==2){
-                        alerta.setText("Alerta Calidad: "+ d.getAlertaC() );
+                if(d.getAlertaC().equals("peligro")){
+                    Toast.makeText(MostrarEscenario.this, d.getAlertaC().toUpperCase(), Toast.LENGTH_SHORT).show(); ;
                     }
 
-                }
+
 
 
             }
