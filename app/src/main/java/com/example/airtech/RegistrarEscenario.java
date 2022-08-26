@@ -252,7 +252,7 @@ public class RegistrarEscenario extends AppCompatActivity {
                             //define save button here!
 
                         if (validaciones()){
-                            Toast.makeText(getApplicationContext(), "Eliminación Exitosa", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Registro Exitoso", Toast.LENGTH_LONG).show();
                             databaseReference.child(popup_NameEscen.getText().toString()).setValue("");
 
                             databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("direccion").setValue(popup_adress.getText().toString());
