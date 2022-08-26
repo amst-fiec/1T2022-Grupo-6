@@ -65,7 +65,7 @@
         android:layout_marginBottom="10dp"
         android:text="Direccion : Tulcan y El Oro"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/textView12"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -73,12 +73,13 @@
         android:id="@+id/textView12"
         android:layout_width="347dp"
         android:layout_height="37dp"
+        android:layout_marginStart="64dp"
         android:layout_marginBottom="10dp"
-        android:text="Telefono de Emergencia : 0987654321"
+        android:text="Telefono de Emergencia : ?"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textView13"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
@@ -88,7 +89,7 @@
         android:layout_marginBottom="128dp"
         android:text="Aforo : 30 "
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -148,7 +149,7 @@
         android:id="@+id/imageView9"
         android:layout_width="38dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView13"
         app:layout_constraintEnd_toStartOf="@+id/textView12"
         app:layout_constraintStart_toStartOf="parent"

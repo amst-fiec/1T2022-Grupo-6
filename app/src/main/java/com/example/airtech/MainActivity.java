@@ -1,7 +1,6 @@
 package com.example.airtech;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -10,16 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,7 +29,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity {
     private RequestQueue mQueue = null;
-    private String token = null;
+    private final String token = null;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 1;
