@@ -1,25 +1,18 @@
 package com.example.airtech;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.airtech.model.Data;
@@ -54,7 +47,7 @@ public class RegistrarEscenario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_escenario);
         btnRegistrarEscenario = findViewById(R.id.btnAddEsc);
-        layout = (LinearLayout) findViewById(R.id.content);
+        layout = findViewById(R.id.content);
         LayoutInflater inflater = LayoutInflater.from(this);
         FirebaseApp.initializeApp(this);
         firebaseDatabase= FirebaseDatabase.getInstance();
@@ -72,151 +65,119 @@ public class RegistrarEscenario extends AppCompatActivity {
                     String etiqueta= objSnapchot.getKey();
                     //String status= "Status: "+ objSnapchot.child("Activacion").getValue();
                     View laViewInflada = inflater.inflate(R.layout.escenario, layout, false);
-                    TextView textView = (TextView) laViewInflada.findViewById(R.id.NumeroEscenario);
+                    TextView textView = laViewInflada.findViewById(R.id.NumeroEscenario);
 
                     textView.setTextSize(18);
                     textView.setText((etiqueta));
                     layout.addView(laViewInflada);
                     btnEliminar  = laViewInflada.findViewById(R.id.ImageView02);
                     btnEditar  = laViewInflada.findViewById(R.id.ImageView01);
-                    btnEliminar.setOnClickListener(new View.OnClickListener() {
+                    btnEliminar.setOnClickListener(v -> {
+
+                        //layout.removeView(laViewInflada);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarEscenario.this);
+                        builder.setTitle(R.string.app_name);
+                        builder.setIcon(R.drawable.basura);
+                        builder.setMessage("'¿Seguro quiére eliminar el escenario?");
+                        builder.setPositiveButton("Si", (dialog, id) -> {
+
+
+                            Toast.makeText(getApplicationContext(), "Eliminacion Exitosa", Toast.LENGTH_LONG).show();
+                            databaseReference.child(String.valueOf(etiqueta)).setValue(null);
+                            for (int iter = 0; iter < i; iter++) {
+                                layout.removeViewAt(0);
+
+
+                            }
+                            i = 0;
+                        });
+                        builder.setNegativeButton("No", (dialog, id) -> dialog.dismiss());
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    });
+                    btnEliminar.setOnClickListener(v -> {
+
+                        //layout.removeView(laViewInflada);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarEscenario.this);
+                        builder.setTitle(R.string.app_name);
+                        builder.setIcon(R.drawable.basura);
+                        builder.setMessage("¿Seguro desea eliminar el escenario?");
+                        builder.setPositiveButton("Si", (dialog, id) -> {
+
+
+                            Toast.makeText(getApplicationContext(), "Eliminación Exitosa", Toast.LENGTH_LONG).show();
+                            databaseReference.child(String.valueOf(etiqueta)).setValue(null);
+                            for (int iter = 0; iter < i; iter++) {
+                                layout.removeViewAt(0);
+
+
+                            }
+                            i = 0;
+                        });
+                        builder.setNegativeButton("No", (dialog, id) -> dialog.dismiss());
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    });
+
+                    btnEditar.setOnClickListener(v -> databaseReference.child("Escenario1").addListenerForSingleValueEvent(new ValueEventListener() {
+                        //@SuppressLint("SetTextI18n")
                         @Override
-                        public void onClick(View v) {
+                        public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                            Data d = snapshot1.getValue(Data.class);
+                            String escenario = (String) textView.getText();
+                            dialogBuilder = new AlertDialog.Builder(RegistrarEscenario.this);
+                            final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup1,null);
 
-                            //layout.removeView(laViewInflada);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarEscenario.this);
-                            builder.setTitle(R.string.app_name);
-                            builder.setIcon(R.drawable.basura);
-                            builder.setMessage("'¿Seguro quiére eliminar el escenario?");
-                            builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
+                            popup_adress = escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
+                            popup_numero = escenarioPopUpView.findViewById(R.id.newPopUp_numero);
+                            popup_aforo = escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
 
+                            popup_save = escenarioPopUpView.findViewById(R.id.saveButton);
+                            popup_cancel = escenarioPopUpView.findViewById(R.id.cancelButton);
 
-                                    Toast.makeText(getApplicationContext(), "Eliminacion Exitosa", Toast.LENGTH_LONG).show();
-                                    databaseReference.child(String.valueOf(etiqueta)).setValue(null);
-                                    for (int iter = 0; iter<i;iter++ ){
-                                        layout.removeViewAt(0);
+                            dialogBuilder.setView(escenarioPopUpView);
+                            dialog = dialogBuilder.create();
+                            dialog.show();
 
+                            popup_save.setOnClickListener(v12 -> {
+                                aforo = popup_aforo.getText().toString().trim();
+                                numero = popup_numero.getText().toString().trim();
+                                direccion = popup_adress.getText().toString().trim();
 
+                                if (numero.equals("") || aforo.equals("") || direccion.equals("")) {
+                                    if (numero.equals("") && aforo.equals("")) {
+                                        databaseReference.child(escenario).child("direccion").setValue(direccion);
                                     }
-                                    i=0;
-                                }
-                            });
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            AlertDialog alert = builder.create();
-                            alert.show();
-                        }
-                    });
-                    btnEliminar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            //layout.removeView(laViewInflada);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(RegistrarEscenario.this);
-                            builder.setTitle(R.string.app_name);
-                            builder.setIcon(R.drawable.basura);
-                            builder.setMessage("¿Seguro desea eliminar el escenario?");
-                            builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-
-
-                                    Toast.makeText(getApplicationContext(), "Eliminación Exitosa", Toast.LENGTH_LONG).show();
-                                    databaseReference.child(String.valueOf(etiqueta)).setValue(null);
-                                    for (int iter = 0; iter<i;iter++ ){
-                                        layout.removeViewAt(0);
-
-
+                                    if (direccion.equals("") && aforo.equals("")) {
+                                        databaseReference.child(escenario).child("telefono").setValue(numero);
                                     }
-                                    i=0;
-                                }
-                            });
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            AlertDialog alert = builder.create();
-                            alert.show();
-                        }
-                    });
+                                    if (direccion.equals("") && numero.equals("")) {
+                                        databaseReference.child(escenario).child("aforo").setValue(aforo);
+                                    }
+                                    if (direccion.equals("") && numero.equals("") && aforo.equals("")) {
+                                        Toast.makeText(getApplicationContext(), "Por favor ingrese un parametro a editar", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    databaseReference.child(escenario).child("aforo").setValue(aforo);
+                                    databaseReference.child(escenario).child("direccion").setValue(direccion);
+                                    databaseReference.child(escenario).child("telefono").setValue(numero);
 
-                    btnEditar.setOnClickListener(new View.OnClickListener() {
+                                }
+
+
+                                dialog.dismiss();
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
+                            });
+                            popup_cancel.setOnClickListener(v1 -> dialog.dismiss());
+                        }
+
                         @Override
-                        public void onClick(View v) {
-                            databaseReference.child("Escenario1").addListenerForSingleValueEvent(new ValueEventListener() {
-                                //@SuppressLint("SetTextI18n")
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    Data d = snapshot.getValue(Data.class);
-                                    String escenario = (String) textView.getText();
-                                    dialogBuilder = new AlertDialog.Builder(RegistrarEscenario.this);
-                                    final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup1,null);
-
-                                    popup_adress = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
-                                    popup_numero = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_numero);
-                                    popup_aforo = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
-
-                                    popup_save = (Button) escenarioPopUpView.findViewById(R.id.saveButton);
-                                    popup_cancel = (Button) escenarioPopUpView.findViewById(R.id.cancelButton);
-
-                                    dialogBuilder.setView(escenarioPopUpView);
-                                    dialog = dialogBuilder.create();
-                                    dialog.show();
-
-                                    popup_save.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            aforo= popup_aforo.getText().toString().trim();
-                                            numero=popup_numero.getText().toString().trim();
-                                            direccion=popup_adress.getText().toString().trim();
-
-                                            if (numero.equals("") || aforo.equals("") || direccion.equals("")){
-                                                if(numero.equals("") && aforo.equals("")){
-                                                    databaseReference.child(escenario).child("direccion").setValue(direccion);
-                                                }
-                                                if(direccion.equals("") && aforo.equals("")){
-                                                    databaseReference.child(escenario).child("telefono").setValue(numero);
-                                                }
-                                                if(direccion.equals("") && numero.equals("") ){
-                                                    databaseReference.child(escenario).child("aforo").setValue(aforo);
-                                                }
-                                                if(direccion.equals("") && numero.equals("") &&aforo.equals("")){
-                                                    Toast.makeText(getApplicationContext(), "Por favor ingrese un parametro a editar", Toast.LENGTH_LONG).show();
-                                                }
-                                            }
-                                            else {
-                                                databaseReference.child(escenario).child("aforo").setValue(aforo);
-                                                databaseReference.child(escenario).child("direccion").setValue(direccion);
-                                                databaseReference.child(escenario).child("telefono").setValue(numero);
-
-                                            }
-
-
-                                            dialog.dismiss();
-                                            Intent intent=getIntent();
-                                            finish();
-                                            startActivity(intent);
-                                        }
-                                    });
-                                    popup_cancel.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(RegistrarEscenario.this, "Fail to get data.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(RegistrarEscenario.this, "Fail to get data.", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }));
                     i=i+1;
                 }
 
@@ -229,69 +190,57 @@ public class RegistrarEscenario extends AppCompatActivity {
             }
         });
 
-        btnRegistrarEscenario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup,null);
-                popup_NameEscen = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_Name);
-                dialogBuilder = new AlertDialog.Builder(RegistrarEscenario.this);
-                dialogBuilder.setView(escenarioPopUpView);
-                dialog = dialogBuilder.create();
-                dialog.show();
-                popup_adress = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
-                popup_numero = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_numero);
-                popup_aforo = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
+        btnRegistrarEscenario.setOnClickListener(view -> {
+            final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup,null);
+            popup_NameEscen = escenarioPopUpView.findViewById(R.id.newPopUp_Name);
+            dialogBuilder = new AlertDialog.Builder(RegistrarEscenario.this);
+            dialogBuilder.setView(escenarioPopUpView);
+            dialog = dialogBuilder.create();
+            dialog.show();
+            popup_adress = escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
+            popup_numero = escenarioPopUpView.findViewById(R.id.newPopUp_numero);
+            popup_aforo = escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
 
-                popup_save = (Button) escenarioPopUpView.findViewById(R.id.saveButton);
-                popup_cancel = (Button) escenarioPopUpView.findViewById(R.id.cancelButton);
+            popup_save = escenarioPopUpView.findViewById(R.id.saveButton);
+            popup_cancel = escenarioPopUpView.findViewById(R.id.cancelButton);
 
 
-                popup_save.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                            //define save button here!
+            popup_save.setOnClickListener(v -> {
+                //define save button here!
 
-                        if (validaciones()){
-                            Toast.makeText(getApplicationContext(), "Eliminación Exitosa", Toast.LENGTH_LONG).show();
-                            databaseReference.child(popup_NameEscen.getText().toString()).setValue("");
+                if (validaciones()) {
+                    Toast.makeText(getApplicationContext(), "Registro Exitoso", Toast.LENGTH_LONG).show();
+                    databaseReference.child(popup_NameEscen.getText().toString()).setValue("");
 
-                            databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("direccion").setValue(popup_adress.getText().toString());
+                    databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("direccion").setValue(popup_adress.getText().toString());
 
-                            databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("aforo").setValue(popup_aforo.getText().toString());
+                    databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("aforo").setValue(popup_aforo.getText().toString());
 
-                            databaseReference.child(String.valueOf(popup_NameEscen.getText())).child("telefono").setValue(popup_numero.getText().toString());
-                            Intent intent=getIntent();
-                            finish();
-                            startActivity(intent);
-                            i=0;
-                        }
-                    }
 
-                });
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                    i = 0;
+                }
+            });
 
 
 
 
-                popup_cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+            popup_cancel.setOnClickListener(v -> dialog.dismiss());
 
 
 
 
-            }
         });
     }
     public boolean validaciones(){
         final View escenarioPopUpView = getLayoutInflater().inflate(R.layout.popup,null);
-        popup_adress = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
-        popup_numero = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_numero);
-        popup_aforo = (EditText) escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
-        popup_save = (Button) escenarioPopUpView.findViewById(R.id.saveButton);
-        popup_cancel = (Button) escenarioPopUpView.findViewById(R.id.cancelButton);
+        popup_adress = escenarioPopUpView.findViewById(R.id.newPopUp_direccion);
+        popup_numero = escenarioPopUpView.findViewById(R.id.newPopUp_numero);
+        popup_aforo = escenarioPopUpView.findViewById(R.id.newPopUp_aforo);
+        popup_save = escenarioPopUpView.findViewById(R.id.saveButton);
+        popup_cancel = escenarioPopUpView.findViewById(R.id.cancelButton);
         escenario= popup_NameEscen.getText().toString();
         direccion=popup_adress.getText().toString();
         aforo=popup_aforo.getText().toString();

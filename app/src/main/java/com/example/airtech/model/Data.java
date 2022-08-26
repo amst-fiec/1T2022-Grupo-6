@@ -43,13 +43,5 @@ public class Data {
     public String getAlertaH() {
         return alertahumedad;
     }
-    public void setTelefono(String tele) {
-        this.telefono = tele;
-    }
-    public void setDireccion(String dir) {
-        this.direccion = dir;
-    }
-    public void setAforo(String afor) {
-        this.aforo = afor;
-    }
+
 }

@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.airtech.model.Data;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -46,7 +45,7 @@ public class MenuPrincipal extends AppCompatActivity {
         btnCerrarSesion = findViewById(R.id.btnSignOff);
         btnRegistrar = findViewById(R.id.btnCrear);
         mAuth = FirebaseAuth.getInstance();
-        LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
+        LinearLayout ll = findViewById(R.id.ll);
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,9 +125,5 @@ public class MenuPrincipal extends AppCompatActivity {
             }
         });
     }
-    public void RegistrarEscen(View v){
 
-        Intent i = new Intent(this, RegistrarEscenario.class);
-        startActivity(i);
-    }
 }

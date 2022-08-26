@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="410dp"
+        android:layout_width="0dp"
         android:layout_height="251dp"
         android:gravity="center"
         android:orientation="vertical"
