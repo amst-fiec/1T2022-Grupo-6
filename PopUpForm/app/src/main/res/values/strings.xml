@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PopUpForm</string>
+    <string name="formulario_de_datos">Formulario_de_datos</string>
+    <string name="cancelar">Cancelar</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">theheroproyect</string>
+    <string name="habilidades">habilidades</string>
+    <string name="nombreheroe">nombreheroe</string>
+    <string name="nombrecompleto">nombrecompleto</string>
+    <string name="imgheroe">imgheroe</string>
+    <string name="Habilidades">Habilidades</string>
+</resources>

@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/txt_nombremateria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Aplicaciones Móviles y Sistemas Telemáticos"
+        android:textSize="30sp"
+        android:layout_marginTop = "10dp"
+        android:layout_marginBottom = "10dp" />
+
+    <TextView
+        android:id="@+id/txt_nombreexamen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Examen Práctico"
+        android:textSize="22sp"
+        android:layout_marginTop = "10dp"
+        />
+
+    <TextView
+        android:id="@+id/txt_nombreintegrantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Cristóbal Lara e Iván Mieles"
+        android:textSize="18sp"
+        android:layout_marginBottom = "20dp" />
+
+    <EditText
+        android:id="@+id/edtxt_busquedaxnombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Búsqueda por nombre"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:layout_marginBottom = "20dp"/>
+
+    <Button
+        android:id="@+id/btn_buscarheroe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="buscarHeroe"
+        android:text="Buscar Héroes"
+        app:backgroundTint="#4CAF50" />
+
+
+</LinearLayout>

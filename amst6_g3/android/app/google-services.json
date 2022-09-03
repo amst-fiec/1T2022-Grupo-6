@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "888400245536",
+    "firebase_url": "https://amst6-g3-default-rtdb.firebaseio.com",
+    "project_id": "amst6-g3",
+    "storage_bucket": "amst6-g3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888400245536:android:db7541c5af2bf68253dd45",
+        "android_client_info": {
+          "package_name": "com.example.amst6_g3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888400245536-uphe2rc2aod5o97hd610q4k7au79aokk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmKvaTAA5WJflR_-GLhS2TzGSUJ3Syvzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "888400245536-uphe2rc2aod5o97hd610q4k7au79aokk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "888400245536-pfn43hr625l61hfu6uinf2293nl2l1cj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.amst6G3"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
